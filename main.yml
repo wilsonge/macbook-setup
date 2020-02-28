@@ -10,6 +10,11 @@
       with_fileglob:
         - "{{ playbook_dir }}/config.yml"
       tags: ['always']
+    - name: get the username running the deploy for IntelliJ Setup
+      become: false
+      local_action: command whoami
+      register: current_username
+      changed_when: false
 
   roles:
     - role: geerlingguy.homebrew
@@ -20,25 +25,16 @@
     - role: geerlingguy.mas
       when: mas_installed_apps
       tags: ['mas']
+    - role: gantsign.intellij-plugins
+      intellij_plugins_intellij_home: '/Applications/IntelliJ\ IDEA.app'
+      intellij_plugins_intellij_user_dirname: '/Users/{{ current_username.stdout_lines[0] }}/Library/Preferences/IntelliJIdea2019.3'
+      users:
+        - username: "{{ current_username.stdout_lines[0] }}"
+          intellij_plugins:
+            - intellij-ansible
 
   tasks:
     - include_tasks: tasks/ansible-setup.yml
 
-    - include_tasks: tasks/sudoers.yml
-      when: configure_sudoers
-
-    - include_tasks: tasks/terminal.yml
-      when: configure_terminal
-
-    - include_tasks: tasks/osx.yml
-      when: configure_osx
-      tags: ['osx']
-
     - include_tasks: tasks/extra-packages.yml
       tags: ['extra-packages']
-
-    - name: Run configured post-provision ansible task files.
-      include_tasks: "{{ outer_item }}"
-      loop_control:
-        loop_var: outer_item
-      with_fileglob: "{{ post_provision_tasks|default(omit) }}"

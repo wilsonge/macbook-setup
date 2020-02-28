@@ -1,10 +1,7 @@
 ---
 downloads: ~/.ansible-downloads/
 
-configure_dotfiles: yes
-configure_sudoers: yes
-configure_terminal: yes
-configure_osx: yes
+configure_dotfiles: no
 
 dotfiles_repo: https://github.com/geerlingguy/dotfiles.git
 dotfiles_repo_accept_hostkey: yes
@@ -17,7 +14,6 @@ dotfiles_files:
   - .vimrc
 
 homebrew_installed_packages:
-  # - ansible # Installed via Pip.
   - autoconf
   - bash-completion
   - doxygen
@@ -36,8 +32,10 @@ homebrew_installed_packages:
   - node
   - nvm
   - php
+  - python3
+  # 7Zip for OSX - sometimes those encrypted zips make unzip sad
+  - p7zip
   - ssh-copy-id
-  - cowsay
   - readline
   - openssl
   - pv
@@ -56,18 +54,23 @@ homebrew_cask_apps:
   - firefox
   - google-chrome
   - handbrake
-  - licecap
+  - intellij-idea
   - macvim
   - sequel-pro
   - skitch
-  - slack
-  - sublime-text
+  - spotify
   - transmit
   - vagrant
+  # Virtualbox fails on the first install as the application needs to be whitelisted inside OSX. Once failed, approve the app rerun the play and all is good
+  - virtualbox
 
 # See `geerlingguy.mas` role documentation for usage instructions.
-mas_installed_apps: []
-mas_email: ""
+mas_installed_apps:
+  - { id: 1333542190, name: "1Password" }
+  - { id: 497799835, name: "Xcode" }
+  - { id: 1295203466, name: "Remote Desktop 10" }
+  - { id: 803453959, name: "Slack" }
+mas_email: "george.wilson@automationlogic.com"
 mas_password: ""
 
 osx_script: "~/.osx --no-restart"
@@ -92,5 +95,5 @@ pip_packages: []
   #   state: present # present/absent/latest, default: present
   #   version: "0.16.3" # default: N/A
 
-# Glob pattern to ansible task files to run after all other tasks are finished.
-post_provision_tasks: []
+# Dirty bodge to avoid using package with sudo (which proxies to homebrew and then as sudo fails)
+intellij_plugins_python_major_version: 1
