@@ -16,6 +16,8 @@ dotfiles_files:
 homebrew_installed_packages:
   - autoconf
   - bash-completion
+  # Legacy GO dep manager used in KD
+  - dep
   - doxygen
   - gettext
   - gifsicle
@@ -58,6 +60,7 @@ homebrew_cask_apps:
   - macvim
   - sequel-pro
   - skitch
+  - skype-for-business
   - spotify
   - transmit
   - vagrant
