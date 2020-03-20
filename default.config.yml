@@ -57,6 +57,7 @@ homebrew_cask_apps:
   - google-chrome
   - handbrake
   - intellij-idea
+  - keybase
   - macvim
   - sequel-pro
   - skitch
