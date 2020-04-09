@@ -24,6 +24,7 @@ homebrew_installed_packages:
   - git
   - go
   - gpg
+  - helm
   - hub
   - httpie
   - iperf
