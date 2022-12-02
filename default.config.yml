@@ -61,6 +61,7 @@ homebrew_cask_apps:
   - intellij-idea
   - keybase
   - macvim
+  - postman
   - sequel-pro
   - skitch
   - skype-for-business
