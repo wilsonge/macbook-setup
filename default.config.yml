@@ -37,6 +37,7 @@ homebrew_installed_packages:
   - packer
   - php
   - python3
+  - poetry
   # 7Zip for OSX - sometimes those encrypted zips make unzip sad
   - p7zip
   - ssh-copy-id
